@@ -61,7 +61,7 @@ export const navigationItems = [
 ];
 
 export const profileDetails = {
-  name: "Rafa Na'ilah Septia",
+  name: "Rafa'Na'ilah Septia",
   email: "rafasepti06@gmail.com",
   phone: "+6288215027255",
   linkedin: "https://linkedin.com/in/ranaise/",

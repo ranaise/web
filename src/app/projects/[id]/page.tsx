@@ -500,7 +500,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </Link>
 
         {/* Thick Glass Card Container */}
-        <div className="rounded-2xl overflow-hidden glass-surface p-8 sm:p-12 space-y-8 shadow-premium-lg">
+        <div className="rounded-2xl overflow-hidden solid-surface p-8 sm:p-12 space-y-8 shadow-premium-lg">
           
           {/* Header Title Information - Clean Title direct to Overview flow */}
           <div className="space-y-3 pb-6 border-b border-border/40">

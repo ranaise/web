@@ -85,7 +85,7 @@ export function Contact() {
                   scale: 1.05,
                   y: -4,
                 }}
-                className={`relative group rounded-2xl p-6 glass-surface flex flex-col items-center justify-center text-center gap-3 transition-all duration-300 border border-border/80 ${link.color} shadow-premium-sm`}
+                className={`relative group rounded-2xl p-6 solid-surface flex flex-col items-center justify-center text-center gap-3 transition-all duration-300 border border-border/80 ${link.color} shadow-premium-sm`}
               >
                 {/* Micro-glow background on hover */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-primary/3 to-accent/3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

@@ -203,17 +203,17 @@ function ProjectCard({
         } group-hover:md:rotate-y-180`}
       >
         {/* --- FRONT FACE: THE MOVIE COVER --- */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rounded-3xl border border-primary/25 bg-card dark:bg-[#12070A] p-5 flex flex-col justify-between shadow-premium-lg">
+        <div className="absolute inset-0 w-full h-full backface-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-card to-primary/5 p-5 flex flex-col justify-between shadow-premium-lg">
           <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5 pointer-events-none rounded-3xl" />
           
-          <div className="flex items-center justify-between text-foreground/50 dark:text-white/50 text-[10px] font-heading font-bold italic uppercase tracking-wider">
+          <div className="flex items-center justify-between text-muted-foreground text-[10px] font-heading font-bold italic uppercase tracking-wider">
             <span>✦ PROJECT</span>
             <span>{project.year}</span>
           </div>
 
-          {/* Screenshot viewport (Theater projection screen mockup with Zoom overlay on hover) */}
+          {/* Screenshot viewport */}
           <div 
-            className="relative aspect-video w-full rounded-xl border border-border/30 dark:border-white/10 overflow-hidden bg-muted/30 dark:bg-black my-2 shadow-inner group/screen cursor-zoom-in"
+            className="relative aspect-video w-full rounded-xl border border-border/30 overflow-hidden bg-muted/30 my-2 shadow-inner group/screen cursor-zoom-in"
             onClick={(e) => {
               e.stopPropagation(); // prevent flipping the card
               onViewImage(project.screenshot, `${project.title} - Main Interface`);
@@ -234,7 +234,7 @@ function ProjectCard({
             <span className="text-[7.5px] font-heading font-bold text-primary/70 tracking-[0.25em] uppercase block">
               ✦ {project.year}
             </span>
-            <h4 className="text-2xl sm:text-3xl font-heading font-bold italic text-foreground dark:text-white leading-none tracking-tight">
+            <h4 className="text-2xl sm:text-3xl font-heading font-bold italic text-foreground leading-none tracking-tight">
               {project.title}
             </h4>
             <span className="text-[10px] font-heading font-bold text-primary tracking-wider uppercase block">
@@ -242,15 +242,15 @@ function ProjectCard({
             </span>
           </div>
 
-          <div className="billing-block-condensed text-[8.5px] text-foreground/45 dark:text-white/55 leading-relaxed text-center border-t border-border/30 dark:border-white/10 pt-4 mt-2 select-none uppercase">
+          <div className="text-[8.5px] text-muted-foreground leading-relaxed text-center border-t border-border/30 pt-4 mt-2 select-none uppercase">
             {project.technologies.join(" • ")}
           </div>
         </div>
 
         {/* --- BACK FACE: THE SYNOPSIS & ACTIONS --- */}
-        <div className="absolute inset-0 w-full h-full rotate-y-180 backface-hidden rounded-3xl border border-primary/25 bg-card dark:bg-[#12070A] p-5 flex flex-col justify-between shadow-premium-lg text-left">
-          <div className="border-b border-border/30 dark:border-white/10 pb-3">
-            <h4 className="text-xl font-heading font-bold italic text-foreground dark:text-white leading-tight">
+        <div className="absolute inset-0 w-full h-full rotate-y-180 backface-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-card to-accent/5 p-5 flex flex-col justify-between shadow-premium-lg text-left">
+          <div className="border-b border-border/30 pb-3">
+            <h4 className="text-xl font-heading font-bold italic text-foreground leading-tight">
               {project.title}
             </h4>
             <span className="text-[9px] font-heading font-bold text-primary uppercase tracking-wider block mt-0.5">
@@ -283,7 +283,7 @@ function ProjectCard({
               </strong>
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {project.technologies.map((tag) => (
-                  <span key={tag} className="px-2 py-0.5 rounded text-[8px] font-bold bg-muted/50 dark:bg-white/5 border border-border/50 dark:border-white/10 text-muted-foreground uppercase">
+                  <span key={tag} className="px-2 py-0.5 rounded text-[8px] font-bold bg-muted/50 border border-border/50 text-muted-foreground uppercase">
                     {tag}
                   </span>
                 ))}
@@ -291,13 +291,13 @@ function ProjectCard({
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 border-t border-border/30 dark:border-white/10 pt-3">
+          <div className="flex flex-col gap-2 border-t border-border/30 pt-3">
             {project.github && (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-center text-[10px] font-heading font-bold text-foreground dark:text-white hover:text-primary tracking-widest uppercase inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-border/40 dark:border-white/10 bg-muted/20 dark:bg-white/5 hover:bg-primary/10 transition-colors"
+                className="w-full text-center text-[10px] font-heading font-bold text-foreground hover:text-primary tracking-widest uppercase inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-border/40 bg-muted/20 hover:bg-primary/10 transition-colors"
                 onClick={(e) => e.stopPropagation()}
               >
                 GitHub Source
@@ -307,7 +307,7 @@ function ProjectCard({
 
             <Link
               href={`/projects/${project.id}`}
-              className="w-full text-center text-[10px] font-heading font-bold text-white hover:text-primary tracking-widest uppercase inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-primary/10 transition-colors"
+              className="w-full text-center text-[10px] font-heading font-bold text-primary-foreground tracking-widest uppercase inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-primary bg-primary hover:bg-primary/90 transition-colors shadow-sm"
               onClick={(e) => e.stopPropagation()}
             >
               View Details

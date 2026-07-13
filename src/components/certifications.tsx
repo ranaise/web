@@ -118,7 +118,7 @@ function WidescreenTicketCard({
   };
 
   return (
-    <div className="w-full relative overflow-hidden p-6 sm:p-10 glass-surface rounded-3xl border border-primary/20 bg-card/45 shadow-premium-xl flex flex-col md:flex-row gap-8 items-center select-none">
+    <div className="w-full relative overflow-hidden p-6 sm:p-10 solid-surface rounded-3xl border border-primary/20 bg-card/45 shadow-premium-xl flex flex-col md:flex-row gap-8 items-center select-none">
       {/* Ticket Notches */}
       <div className="ticket-notch-left hidden md:block" />
       <div className="ticket-notch-right hidden md:block" />

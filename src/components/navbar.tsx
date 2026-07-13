@@ -52,11 +52,8 @@ export function Navbar() {
       // Navbar shrink & hide checks
       setIsScrolled(currentScrollY > 20);
 
-      if (currentScrollY > lastScrollY && currentScrollY > 150) {
-        setIsVisible(false); // scrolling down
-      } else {
-        setIsVisible(true); // scrolling up
-      }
+      // Navbar hide check removed as per user request
+      setIsScrolled(currentScrollY > 20);
 
       setLastScrollY(currentScrollY);
     };
@@ -70,29 +67,25 @@ export function Navbar() {
   return (
     <motion.div
       animate={{
-        y: isVisible ? 0 : -90,
-        scale: isScrolled ? 0.98 : 1,
+        y: 0, // Never hide
+        scale: 1, // Keep scale constant
       }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      className="sticky top-4 z-50 w-full px-4 sm:px-6 max-w-5xl mx-auto"
+      className="fixed top-0 left-0 right-0 z-50 w-full"
     >
-      <header className="w-full rounded-full border border-border bg-card/65 dark:bg-card/50 backdrop-blur-md shadow-xs transition-colors duration-300">
-        <div className="flex h-12 sm:h-14 items-center justify-between px-4 sm:px-6">
-          <Link 
-            href="#home" 
-            className="flex items-center gap-2 font-heading font-bold tracking-tight hover:opacity-85 transition-opacity focus-visible:ring-2 focus-visible:ring-primary rounded-lg p-1 outline-none"
-          >
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-tr from-primary/20 to-accent/20 border border-primary/30 text-[9px] font-heading font-extrabold italic text-primary shadow-[0_0_10px_rgba(255,92,138,0.2)]">
-              R
-            </div>
-            <span className="hidden sm:inline text-xs font-heading font-bold tracking-wider text-foreground italic">
-              Rafa Na&apos;ilah Septia
-            </span>
-            <span className="sm:hidden text-[10px] font-heading font-bold text-foreground italic">Rafa Na&apos;ilah</span>
-          </Link>
+      <header className={`w-full transition-all duration-300 ${isScrolled ? "bg-card border-b border-border shadow-md" : "bg-transparent"}`}>
+        <div className="flex h-16 items-center justify-between px-6 md:px-12 max-w-7xl mx-auto">
+          <div className="flex-1 flex justify-start">
+            <Link 
+              href="#home" 
+              className="flex items-center hover:opacity-85 transition-opacity focus-visible:ring-2 focus-visible:ring-primary rounded-lg p-1 outline-none text-2xl font-heading font-bold text-foreground italic"
+            >
+              R.
+            </Link>
+          </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex flex-1 justify-center items-center gap-8">
             {navigationItems.map((item) => {
               const id = item.href.substring(1);
               const isActive = activeSection === id;
@@ -100,13 +93,13 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative text-[10px] font-bold tracking-widest uppercase transition-colors duration-200 hover:text-foreground py-1 outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm ${
-                    isActive ? "text-foreground font-extrabold" : "text-muted-foreground"
+                  className={`relative text-xs font-semibold tracking-wider transition-colors duration-200 hover:text-foreground py-1 outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm ${
+                    isActive ? "text-foreground font-bold" : "text-muted-foreground"
                   }`}
                 >
                   {item.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 h-[1.5px] w-full bg-primary rounded-full" />
+                    <span className="absolute -bottom-1 left-0 h-[2px] w-full bg-primary rounded-full" />
                   )}
                 </Link>
               );
@@ -114,7 +107,7 @@ export function Navbar() {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex-1 flex justify-end items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
@@ -146,7 +139,7 @@ export function Navbar() {
                     className="flex items-center gap-2 font-heading font-bold text-sm tracking-tight px-3"
                   >
                     <Terminal className="h-4 w-4 text-primary" />
-                    <span className="font-mono tracking-wider">Rafa Na&apos;ilah Septia</span>
+                    <span className="font-mono tracking-wider">Rafa'Na'ilah Septia</span>
                   </Link>
                   <div className="flex flex-col gap-1">
                     {navigationItems.map((item) => {
