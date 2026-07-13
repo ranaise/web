@@ -13,6 +13,19 @@ interface MockupProps {
   alt: string;
 }
 
+const appDetailsShort: Record<string, string> = {
+  "nexevent-2026": "Coordinates campus event approvals across Student Affairs (Superadmin), Organization Presidents (Admin), and Students.",
+  "posyandu-pintar": "Provides a health data logging dashboard for infant records, offering automated BMI/growth chart rendering and Groq AI diet suggestions.",
+  "microplast-2026": "Automates microplastic fragment analysis under microscopic views using OpenCV binarization, Otsu filters, and circularity calculations.",
+  "gpt-ner-2026": "Converts plain English documents into structured JSON entity labels, querying Groq Llama-3 models with evaluation metrics.",
+  "my-dormitory-2025": "Manages resident check-in/check-out confirmations using localized GPS fence validation and camera-verified QR code scans.",
+  "telyutalks-2025": "Serves as a campus question-and-answer discussion forum, integrating Telkom SSO login and admin content moderation queues."
+};
+
+function getAppDetailsShort(id: string, fallback: string): string {
+  return appDetailsShort[id] || fallback;
+}
+
 export function TechIcon({ name }: { name: string }) {
   const deviconMap: Record<string, string> = {
     Python: "python/python-original.svg",
@@ -257,10 +270,10 @@ function ProjectCard({
 
             <div className="space-y-1">
               <strong className="text-[9px] font-heading font-bold text-primary tracking-widest uppercase block">
-                My Contribution
+                Core Functionality
               </strong>
               <p className="text-[11px] leading-relaxed text-muted-foreground">
-                {project.contribution}
+                {getAppDetailsShort(project.id, project.overview)}
               </p>
             </div>
 

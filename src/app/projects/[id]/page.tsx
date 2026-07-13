@@ -16,6 +16,19 @@ interface PageProps {
   }>;
 }
 
+const appDetailsDetailed: Record<string, string> = {
+  "nexevent-2026": "NexEvent utilizes a role-based approval pipeline designed to coordinate university event planning across three user roles: Superadmins (Student Affairs Directorate), Admins (Organization Presidents), and Students (divided into Organization Members and Regular Students).\n\nThe workflow functions as follows:\n1. Organization Presidents (Admins) submit event proposals directly, which wait for final review and approval by the Student Affairs Directorate (Superadmin) before being published to the mobile client.\n2. Organization Members (Students) can also propose events. However, their requests undergo a two-stage process: first reviewed by their Organization President, and if approved, forwarded to the Student Affairs Directorate for final verification.\n3. To maintain platform integrity, regular students cannot submit events, and the event submission button is hidden from their dashboard, whereas active organization members have full access to it.",
+  "posyandu-pintar": "Posyandu Pintar provides a health data logging dashboard for infant records, offering automated BMI/growth chart rendering and Groq AI diet suggestions.\n\nKey features include:\n- Health cadres record physical developmental metrics (weight, height, arm/head circumferences) during monthly sessions.\n- The system parses these statistics against WHO reference datasets to compute growth percentiles and outputs clear visualizations.\n- It queries LLM models via Groq API to generate contextual nutrition diagnoses, and supports exporting logs into Excel reports.",
+  "microplast-2026": "MicroPlast automates microplastic fragment analysis under microscopic views using OpenCV binarization, Otsu filters, and circularity calculations.\n\nThe processing pipeline runs as follows:\n1. Loads raw microscopic lens photographs and applies Gaussian Blur to eliminate vignette shadow gradients.\n2. Segments particles using adaptive thresholding and performs mathematical closing operations to smooth particle edges.\n3. Extracts particle contours, measures area/perimeter geometry, and calculates circularity metrics to classify contaminants into distinct shape groups (like fibers vs fragments).",
+  "gpt-ner-2026": "GPT-NER converts plain English documents into structured JSON entity labels, querying Groq Llama-3 models with evaluation metrics.\n\nThe text extraction pipeline functions as follows:\n1. Loads plain text files and coordinates API queries with customized prompting templates to extract key tokens (like names, organizations, and locations).\n2. Parses LLM responses using regular expressions to clean up JSON tags.\n3. Processes dataset lines to compare Llama-3 extractions against standard CoNLL-2003 labeled benchmarks to report F1-score, precision, and recall statistics.",
+  "my-dormitory-2025": "My Dormitory manages resident check-in/check-out confirmations using localized GPS fence validation and camera-verified QR code scans.\n\nThe check-in/check-out workflow works as follows:\n- Residents scan dynamic QR codes displayed at the lobby desk using their mobile camera.\n- The mobile client tracks active GPS coordinates to verify that scans are within a strict radius of the dormitory building.\n- Building managers process these verified entries to monitor room occupancy and resolve maintenance work orders.",
+  "telyutalks-2025": "TelyuTalks serves as a campus question-and-answer discussion forum, integrating Telkom SSO login and admin content moderation queues.\n\nCore forum workflows include:\n- Students and faculty authenticate using official single sign-on emails to publish academic inquiries, submit answers, and upvote threads.\n- The system runs an automated filter to check for flag words and pipes reports of policy violations directly into an administrative review desk.\n- Administrators and moderators manage reported threads and remove inappropriate content to maintain forum integrity."
+};
+
+function getAppDetailsDetailed(id: string): string {
+  return appDetailsDetailed[id] || "";
+}
+
 // 1. Grouped screenshots combining consecutive pages (1, 2, 3) for all projects
 const projectsScreenshots: Record<string, { mobile?: any[]; web?: any[] }> = {
   "nexevent-2026": {
@@ -40,9 +53,13 @@ const projectsScreenshots: Record<string, { mobile?: any[]; web?: any[] }> = {
         label: "Event Submission Form",
         images: [
           "/projects/nexevent/Ajukan acara mobile1.jpg",
-          "/projects/nexevent/Ajukan acara mobile2.jpg",
-          "/projects/nexevent/Ajukan acara mobile3.jpg"
+          "/projects/nexevent/Ajukan acara mobile2.jpg"
         ]
+      },
+      {
+        id: "detail-event-mobile",
+        label: "Event Details Panel",
+        images: ["/projects/nexevent/Detail acara mobile.jpg"]
       },
       {
         id: "mytickets-mobile",
@@ -511,10 +528,10 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
             <div className="space-y-2">
               <strong className="text-xs uppercase tracking-wider text-foreground font-mono block">
-                My Contributions
+                How It Works &amp; Core Logic
               </strong>
-              <p className="text-sm sm:text-base text-muted-foreground">
-                {project.contribution}
+              <p className="text-sm sm:text-base text-muted-foreground whitespace-pre-line">
+                {getAppDetailsDetailed(project.id)}
               </p>
             </div>
           </div>
