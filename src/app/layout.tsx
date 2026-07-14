@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const playfairDisplay = Playfair_Display({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-playfair",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-geist-mono", // keeping the variable name consistent with globals.css or redefining it
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const inter = Inter({
@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${playfairDisplay.variable} ${inter.variable} antialiased min-h-screen text-foreground transition-colors duration-300 font-sans`}
+        className={`${jetbrainsMono.variable} ${inter.variable} antialiased min-h-screen text-foreground transition-colors duration-300 font-sans`}
       >
         <ThemeProvider
           attribute="class"

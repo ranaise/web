@@ -290,3 +290,36 @@ export const certificationsData: CertificationItem[] = [
     image: "/cert-kaggle.png"
   }
 ];
+
+export const projectArchitectures: Record<string, { icon: string; title: string; desc: string }[]> = {
+  "posyandu-pintar": [
+    { icon: "Code2", title: "Frontend Client (Next.js & Tailwind CSS)", desc: "Built as a mobile-first Next.js web application utilizing TypeScript type contracts. Supports user dashboards, growth monitoring charts, and loading states for slower APIs." },
+    { icon: "Code2", title: "RESTful Backend (NestJS & Prisma ORM)", desc: "Engineered secure backend APIs with NestJS framework and class-validator schemas, communicating cleanly with external endpoints." },
+    { icon: "Database", title: "Relational Database (PostgreSQL)", desc: "Structured PostgreSQL database schema storing infant identities, parent bio records, and historical monthly growth measurements." }
+  ],
+  "microplast-2026": [
+    { icon: "Code2", title: "Web Interface (Python & Streamlit)", desc: "Highly interactive web application built with Streamlit, enabling users to upload microscope photographs and dynamically adjust filtering parameters via sidebar sliders." },
+    { icon: "Cpu", title: "Image Processing Pipeline (OpenCV & NumPy)", desc: "Executes digital image processing algorithms (Grayscale, Illumination Correction blur division, Noise reduction, Otsu/Adaptive Thresholding, Closing operations, Contour measurements) on the pixel matrix in real time." },
+    { icon: "Database", title: "Tabular Metrics Reporting (Pandas)", desc: "Aggregates raw particle measurement results (pixel areas, circularity) into tabular Pandas Dataframes, converting pixel sizes into physical micrometer values." }
+  ],
+  "gpt-ner-2026": [
+    { icon: "Code2", title: "Web Prompting Interface (Python & Streamlit)", desc: "Web interface mapping prompt scripts to the Large Language Model endpoint, providing interactive text boxes for Named Entity Recognition queries." },
+    { icon: "Cpu", title: "Groq API Llama-3 Pipeline", desc: "Connects text extraction requests to Llama-3 models via Groq API. Employs prompt engineering tags to restrict response formatting to a deterministic structure." },
+    { icon: "Database", title: "Evaluation & Gold Standard (seqeval & CoNLL-2003)", desc: "Processes 1,500 dataset lines through the model, running comparisons on tokens against target tags to generate entity-level precision matrices." }
+  ],
+  "my-dormitory-2025": [
+    { icon: "Code2", title: "Mobile Client (Flutter & Dart)", desc: "Dormitory resident mobile app built using Flutter. Integrates camera scanner modules to read lobby QR codes, checking device coordinate values on check-ins." },
+    { icon: "Code2", title: "Admin Web Panel (Vue.js)", desc: "Frontend Vue.js admin portal managing resident list tables, room allocation, presensi verification logs, and infrastructure problem tickets." },
+    { icon: "Database", title: "RESTful Backend & DB (Laravel & MySQL)", desc: "Laravel backend APIs exposing endpoints to verify logins, update resident DB entries, check coordinate distances, and export presensi CSV summaries." }
+  ],
+  "telyutalks-2025": [
+    { icon: "Code2", title: "Platform Frontend (Thymeleaf & JS)", desc: "HTML web interfaces styled with Vanilla CSS and rendered server-side using Thymeleaf templates. Utilizes asynchronous Fetch API requests to fetch clean user tables." },
+    { icon: "Code2", title: "Application MVC (Java Spring Boot)", desc: "Backend core running Spring Boot. Implements Spring Security to enforce campus-only email validation, role-based filters, and thread moderation logic." },
+    { icon: "Database", title: "Persistent Database (MySQL & Hibernate JPA)", desc: "Stores users, questions, answers, and reported posts using JPA mapping relationships, optimizing data retrieval." }
+  ],
+  "nexevent-2026": [
+    { icon: "Code2", title: "Mobile Application (Flutter)", desc: "Student-facing mobile application built with Flutter. Provides event discovery, QR-code ticket rendering, and push notifications for waitlist promotions." },
+    { icon: "Code2", title: "API Services (Laravel)", desc: "Laravel backend handling role-based routing, QR attendance generation, event overlap validation, and reservation state matrices." },
+    { icon: "Database", title: "Relational Database (MySQL)", desc: "MySQL database structuring complex relationships between students, organizations, waitlists, events, and approval logs." }
+  ]
+};

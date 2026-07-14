@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { Mail, Phone, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
+import { Mail, ArrowUpRight } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 
 // Inline WhatsApp SVG brand icon
@@ -15,60 +15,52 @@ function WhatsappIcon({ className }: { className?: string }) {
 }
 
 export function Contact() {
-  const shouldReduceMotion = useReducedMotion();
-
-  // Contact list targets from official CV data
   const contactLinks = [
     {
       name: "WhatsApp",
       label: "+62 882-1502-7255",
       href: "https://wa.me/6288215027255",
       icon: WhatsappIcon,
-      color: "hover:border-[#25D366]/40 text-[#25D366] bg-[#25D366]/5",
     },
     {
       name: "Email",
       label: "rafasepti06@gmail.com",
       href: "mailto:rafasepti06@gmail.com",
       icon: Mail,
-      color: "hover:border-primary/40 text-primary bg-primary/5",
     },
     {
       name: "LinkedIn",
       label: "linkedin.com/in/ranaise",
       href: "https://linkedin.com/in/ranaise/",
       icon: LinkedinIcon,
-      color: "hover:border-[#0077B5]/40 text-[#0077B5] bg-[#0077B5]/5",
     },
     {
       name: "GitHub",
       label: "github.com/ranaise",
       href: "https://github.com/ranaise/",
       icon: GithubIcon,
-      color: "hover:border-foreground/40 text-foreground bg-foreground/5",
     },
   ];
 
   return (
-    <section id="contact" className="py-24 px-6 sm:px-8 bg-background transition-colors duration-300">
-      <div className="container mx-auto max-w-4xl text-center space-y-16">
+    <section id="contact" className="py-24 px-6 sm:px-8 bg-muted/30 border-t border-border/40">
+      <div className="container mx-auto max-w-6xl space-y-16">
         
         {/* Section Heading */}
-        <div className="max-w-2xl mx-auto space-y-2">
-          <h2 className="text-xs font-heading font-bold uppercase tracking-wider text-primary italic">
-            ✨ Contact
+        <div className="max-w-2xl text-left space-y-4">
+          <h2 className="text-sm font-mono font-bold uppercase tracking-widest text-primary">
+            05. Initialization
           </h2>
-          <h3 className="text-3xl sm:text-4xl md:text-5xl font-heading tracking-tight text-foreground leading-[1.05] font-normal italic">
-            Get in Touch
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold tracking-tight text-foreground">
+            Connect
           </h3>
-          <div className="h-0.5 w-8 bg-primary/40 mx-auto mt-2 rounded-full" />
-          <p className="text-xs sm:text-sm text-muted-foreground pt-3 leading-relaxed max-w-[55ch] mx-auto">
-            Direct access to my channels. Click any item below to message me, check repositories, or connect professionally.
+          <p className="text-base text-muted-foreground max-w-[60ch]">
+            Direct access channels for system design discussions, architectural consultations, and professional inquiries.
           </p>
         </div>
 
-        {/* Dynamic Recruiter Contact Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {/* Minimal Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-border border border-border">
           {contactLinks.map((link, index) => {
             const Icon = link.icon;
             return (
@@ -77,36 +69,34 @@ export function Contact() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                whileHover={shouldReduceMotion ? {} : {
-                  scale: 1.05,
-                  y: -4,
-                }}
-                className={`relative group rounded-2xl p-6 solid-surface flex flex-col items-center justify-center text-center gap-3 transition-all duration-300 border border-border/80 ${link.color} shadow-premium-sm`}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className="group relative bg-card p-6 flex flex-col items-start gap-8 hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
               >
-                {/* Micro-glow background on hover */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-primary/3 to-accent/3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-                {/* Brand Icon wrapper */}
-                <div className="p-3.5 rounded-2xl bg-card border border-border/85 flex items-center justify-center transition-all group-hover:scale-110 shadow-xs text-current">
-                  <Icon className="h-6 w-6" />
+                <div className="w-full flex justify-between items-start">
+                  <Icon className="h-6 w-6 opacity-70 group-hover:opacity-100 transition-opacity" />
+                  <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </div>
 
-                <div className="space-y-1">
-                  <span className="text-[9px] font-mono tracking-widest uppercase font-extrabold block text-muted-foreground">
+                <div className="space-y-1 mt-4">
+                  <span className="text-[10px] font-mono tracking-widest uppercase font-bold block text-muted-foreground group-hover:text-primary-foreground/70 transition-colors">
                     {link.name}
                   </span>
-                  <span className="text-[11px] font-semibold text-foreground tracking-tight truncate max-w-[140px] inline-flex items-center gap-1">
-                    {link.name === "WhatsApp" ? "+6288215027255" : link.label.replace("https://", "")}
-                    <ExternalLink className="h-3 w-3 text-muted-foreground opacity-50 group-hover:opacity-100 transition-opacity" />
+                  <span className="text-sm font-mono font-bold truncate block w-full max-w-full">
+                    {link.label.replace("https://", "")}
                   </span>
                 </div>
               </motion.a>
             );
           })}
+        </div>
+
+        {/* Minimal Footer Stamp */}
+        <div className="pt-16 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-foreground uppercase tracking-wider">
+          <p>&copy; {new Date().getFullYear()} Rafa Septian.</p>
+          <p>System Online &bull; All Rights Reserved</p>
         </div>
       </div>
     </section>

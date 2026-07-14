@@ -6,9 +6,20 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, ZoomIn, ShieldCheck, Cpu, Code2, Database, Map, ChevronLeft, ChevronRight, Layers, FileText, BarChart3, Binary, LayoutDashboard } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { projectsData } from "@/data";
-import { TechIcon } from "@/components/projects";
+import { projectsData, projectArchitectures } from "@/data";
 import { GithubIcon } from "@/components/icons";
+
+const IconMap: Record<string, any> = {
+  Code2, Cpu, Database, Map, ShieldCheck, FileText, Binary, LayoutDashboard, BarChart3, Layers
+};
+
+function TechIcon({ name }: { name: string }) {
+  return (
+    <span className="px-2 py-1 text-[10px] font-mono font-bold tracking-widest text-primary bg-primary/10 border border-primary/20 rounded uppercase">
+      {name}
+    </span>
+  );
+}
 
 interface PageProps {
   params: Promise<{
@@ -782,157 +793,20 @@ export default function ProjectDetailPage({ params }: PageProps) {
             </strong>
 
             <div className="space-y-3.5 text-xs">
-              {project.id === "posyandu-pintar" ? (
-                <>
-                  <div className="flex items-start gap-3">
-                    <Code2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
+              {projectArchitectures[project.id]?.map((arch, index) => {
+                const IconComponent = IconMap[arch.icon] || Code2;
+                return (
+                  <div key={index} className="flex items-start gap-3">
+                    <IconComponent className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
                     <div className="text-left">
-                      <span className="font-bold text-foreground block">Frontend Client (Next.js &amp; Tailwind CSS)</span>
+                      <span className="font-bold text-foreground block">{arch.title}</span>
                       <span className="text-muted-foreground leading-relaxed">
-                        Built as a mobile-first Next.js web application utilizing TypeScript type contracts. Supports user dashboards, growth monitoring charts, and loading states for slower APIs.
+                        {arch.desc}
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <Code2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">RESTful Backend (NestJS &amp; Prisma ORM)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Engineered secure backend APIs with NestJS framework and class-validator schemas, communicating cleanly with external endpoints.
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Database className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Relational Database (PostgreSQL)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Structured PostgreSQL database schema storing infant identities, parent bio records, and historical monthly growth measurements.
-                      </span>
-                    </div>
-                  </div>
-                </>
-              ) : project.id === "microplast-2026" ? (
-                <>
-                  <div className="flex items-start gap-3">
-                    <Code2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Web Interface (Python &amp; Streamlit)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Highly interactive web application built with Streamlit, enabling users to upload microscope photographs and dynamically adjust filtering parameters via sidebar sliders.
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Cpu className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Image Processing Pipeline (OpenCV &amp; NumPy)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Executes digital image processing algorithms (Grayscale, Illumination Correction blur division, Noise reduction, Otsu/Adaptive Thresholding, Closing operations, Contour measurements) on the pixel matrix in real time.
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Database className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Tabular Metrics Reporting (Pandas)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Aggregates raw particle measurement results (pixel areas, circularity) into tabular Pandas Dataframes, converting pixel sizes into physical micrometer values.
-                      </span>
-                    </div>
-                  </div>
-                </>
-              ) : project.id === "gpt-ner-2026" ? (
-                <>
-                  <div className="flex items-start gap-3">
-                    <Code2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Web Prompting Interface (Python &amp; Streamlit)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Web interface mapping prompt scripts to the Large Language Model endpoint, providing interactive text boxes for Named Entity Recognition queries.
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Cpu className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Groq API Llama-3 Pipeline</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Connects text extraction requests to Llama-3 models via Groq API. Employs prompt engineering tags to restrict response formatting to a deterministic structure.
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Database className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Evaluation &amp; Gold Standard (seqeval &amp; CoNLL-2003)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Processes 1,500 dataset lines through the model, running comparisons on tokens against target tags to generate entity-level precision matrices.
-                      </span>
-                    </div>
-                  </div>
-                </>
-              ) : project.id === "my-dormitory-2025" ? (
-                <>
-                  <div className="flex items-start gap-3">
-                    <Code2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Mobile Client (Flutter &amp; Dart)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Dormitory resident mobile app built using Flutter. Integrates camera scanner modules to read lobby QR codes, checking device coordinate values on check-ins.
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Code2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Admin Web Panel (Vue.js)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Frontend Vue.js admin portal managing resident list tables, room allocation, presensi verification logs, and infrastructure problem tickets.
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Database className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">RESTful Backend &amp; DB (Laravel &amp; MySQL)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Laravel backend APIs exposing endpoints to verify logins, update resident DB entries, check coordinate distances, and export presensi CSV summaries.
-                      </span>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="flex items-start gap-3">
-                    <Code2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Platform Frontend (Thymeleaf &amp; JS)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        HTML web interfaces styled with Vanilla CSS and rendered server-side using Thymeleaf templates. Utilizes asynchronous Fetch API requests to fetch clean user tables.
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Code2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Application MVC (Java Spring Boot)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Backend core running Spring Boot. Implements Spring Security to enforce campus-only email validation, role-based filters, and thread moderation logic.
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Database className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                    <div className="text-left">
-                      <span className="font-bold text-foreground block">Persistent Database (MySQL &amp; Hibernate JPA)</span>
-                      <span className="text-muted-foreground leading-relaxed">
-                        Stores users, questions, answers, and reported posts using JPA mapping relationships, optimizing data retrieval.
-                      </span>
-                    </div>
-                  </div>
-                </>
-              )}
+                );
+              })}
             </div>
           </div>
 
