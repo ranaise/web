@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Inter } from "next/font/google";
+import { Manrope, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const jetbrainsMono = JetBrains_Mono({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-geist-mono", // keeping the variable name consistent with globals.css or redefining it
+  variable: "--font-sans",
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const inter = Inter({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-mono",
   weight: ["400", "500", "600", "700"],
 });
 
@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${jetbrainsMono.variable} ${inter.variable} antialiased min-h-screen text-foreground transition-colors duration-300 font-sans`}
+        className={`${ibmPlexMono.variable} ${manrope.variable} antialiased min-h-screen text-foreground transition-colors duration-300 font-sans`}
       >
         <ThemeProvider
           attribute="class"

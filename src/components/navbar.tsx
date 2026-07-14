@@ -64,20 +64,20 @@ export function Navbar() {
       transition={{ duration: 0.35, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 w-full"
     >
-      <header className={`w-full transition-all duration-300 border-b ${isScrolled ? "bg-background/95 backdrop-blur-sm border-border" : "bg-transparent border-transparent"}`}>
-        <div className="flex h-14 md:h-16 items-stretch justify-between px-6 md:px-12 max-w-7xl mx-auto">
+      <header className={`w-full transition-all duration-300 border-b ${isScrolled ? "bg-background/95 backdrop-blur-md border-border" : "bg-transparent border-transparent"}`}>
+        <div className="flex h-16 md:h-20 items-center justify-between px-6 md:px-12 max-w-7xl mx-auto">
           
-          <div className="flex items-center">
+          <div className="flex-1 flex items-center">
             <Link 
               href="#home" 
-              className="flex items-center hover:text-primary transition-colors focus-visible:ring-1 focus-visible:ring-primary outline-none text-2xl font-heading font-bold text-foreground"
+              className="hover:text-primary transition-colors outline-none text-2xl font-heading font-bold text-foreground"
             >
-              R.
+              RN
             </Link>
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-stretch gap-px bg-border/40 ml-8">
+          <nav className="hidden md:flex items-center gap-8 justify-center flex-1">
             {navigationItems.map((item) => {
               const id = item.href.substring(1);
               const isActive = activeSection === id;
@@ -85,8 +85,8 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center px-6 text-[11px] font-mono font-bold tracking-widest uppercase transition-colors duration-200 outline-none focus-visible:ring-inset focus-visible:ring-1 focus-visible:ring-primary bg-background ${
-                    isActive ? "text-primary border-b-2 border-primary" : "text-muted-foreground hover:text-foreground border-b-2 border-transparent hover:bg-muted/30"
+                  className={`text-[12px] font-mono font-medium tracking-widest uppercase transition-colors duration-200 outline-none hover:text-foreground ${
+                    isActive ? "text-foreground font-bold" : "text-muted-foreground"
                   }`}
                 >
                   {item.label}
@@ -95,13 +95,20 @@ export function Navbar() {
             })}
           </nav>
 
+          {/* Mobile Center active section or name */}
+          <div className="flex md:hidden flex-1 justify-center items-center">
+            <span className="text-[12px] font-mono font-bold tracking-widest uppercase text-foreground">
+              {activeSection === "home" ? "Rafa'Na'ilah" : activeSection}
+            </span>
+          </div>
+
           {/* Actions */}
-          <div className="flex items-center gap-4 ml-auto">
+          <div className="flex-1 flex items-center justify-end gap-4">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-none w-10 h-10 border border-transparent hover:border-border/60 focus-visible:ring-1 focus-visible:ring-primary cursor-pointer transition-colors"
+              className="rounded-none w-10 h-10 hover:bg-muted/50 cursor-pointer transition-colors"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? (
@@ -114,45 +121,31 @@ export function Navbar() {
             {/* Mobile Nav Trigger */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger 
-                className="flex items-center justify-center w-10 h-10 md:hidden text-muted-foreground hover:text-foreground border border-transparent hover:border-border/60 focus-visible:ring-1 focus-visible:ring-primary outline-none cursor-pointer transition-colors"
+                className="flex items-center justify-center w-10 h-10 md:hidden text-foreground hover:bg-muted/50 outline-none cursor-pointer transition-colors"
                 aria-label="Open navigation menu"
               >
                 <Menu className="h-5 w-5" />
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] border-l border-border bg-background/95 backdrop-blur-md p-0">
+              <SheetContent side="top" className="w-full h-full bg-background/95 backdrop-blur-xl border-none p-0 flex flex-col justify-center items-center gap-8">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                <div className="flex flex-col h-full">
-                  <div className="p-6 border-b border-border/60">
+                {navigationItems.map((item) => {
+                  const id = item.href.substring(1);
+                  const isActive = activeSection === id;
+                  return (
                     <Link
-                      href="#home"
+                      key={item.href}
+                      href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-3 font-heading font-bold text-sm tracking-tight"
+                      className={`text-2xl font-heading font-bold transition-colors ${
+                        isActive
+                          ? "text-primary"
+                          : "text-foreground hover:text-primary"
+                      }`}
                     >
-                      <Terminal className="h-4 w-4 text-primary" />
-                      <span className="font-mono tracking-wider">SYSTEM_NAV</span>
+                      {item.label}
                     </Link>
-                  </div>
-                  <div className="flex flex-col">
-                    {navigationItems.map((item) => {
-                      const id = item.href.substring(1);
-                      const isActive = activeSection === id;
-                      return (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setIsOpen(false)}
-                          className={`flex items-center px-6 py-4 text-[11px] font-mono font-bold uppercase tracking-widest border-b border-border/40 transition-colors ${
-                            isActive
-                              ? "bg-primary/5 text-primary border-l-4 border-l-primary"
-                              : "text-muted-foreground hover:bg-muted/50 hover:text-foreground border-l-4 border-l-transparent"
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
+                  );
+                })}
               </SheetContent>
             </Sheet>
           </div>

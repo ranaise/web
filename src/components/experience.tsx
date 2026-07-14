@@ -22,216 +22,163 @@ function renderBoldText(text: string) {
   );
 }
 
-function LogEntry({
-  version,
-  title,
-  subtitle,
-  date,
-  location,
-  body,
-  attachments,
-  onViewImage
-}: {
-  version: string;
-  title: string;
-  subtitle: string;
-  date: string;
-  location?: string;
-  body: React.ReactNode;
-  attachments?: string[];
-  onViewImage?: (src: string, title: string) => void;
-}) {
-  return (
-    <div className="relative pl-8 pb-12 last:pb-0 border-l border-border/60">
-      {/* Node / Commit Dot */}
-      <div className="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full bg-background border-2 border-primary" />
-      
-      <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
-          <span className="text-xs font-mono font-bold text-primary shrink-0 bg-primary/10 px-2 py-0.5 rounded">
-            {version}
-          </span>
-          <h4 className="text-xl font-heading font-bold text-foreground">
-            {title}
-          </h4>
-        </div>
-        
-        <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-muted-foreground uppercase tracking-wider">
-          <span className="flex items-center gap-1.5">
-            <Terminal className="h-3 w-3" />
-            {subtitle}
-          </span>
-          <span>&bull;</span>
-          <span>{date}</span>
-          {location && (
-            <>
-              <span>&bull;</span>
-              <span>{location}</span>
-            </>
-          )}
-        </div>
-
-        <div className="text-sm text-muted-foreground leading-relaxed pt-2">
-          {body}
-        </div>
-
-        {attachments && attachments.length > 0 && onViewImage && (
-          <div className="pt-4 space-y-2">
-            <div className="text-xs font-mono text-muted-foreground uppercase flex items-center gap-2 border-b border-border/40 pb-2">
-              <Link className="h-3 w-3" />
-              Attached Assets ({attachments.length})
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
-              {attachments.map((src, idx) => (
-                <div 
-                  key={idx}
-                  onClick={() => onViewImage(src, `${title} - Asset ${idx + 1}`)}
-                  className="group relative aspect-video bg-muted/40 border border-border/60 cursor-pointer overflow-hidden rounded-md"
-                >
-                  <img 
-                    src={src} 
-                    alt={`Asset ${idx + 1}`} 
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <ImageIcon className="h-5 w-5 text-white" />
-                  </div>
-                  <div className="absolute bottom-1 right-2 text-[9px] font-mono text-white/70 bg-black/50 px-1 rounded">
-                    IMG_{idx+1}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 export function Experience() {
   const [lightbox, setLightbox] = React.useState<{ src: string; title: string } | null>(null);
 
   return (
-    <section id="experience" className="py-24 px-6 sm:px-8 bg-muted/30 border-t border-border/40">
-      <div className="container mx-auto max-w-6xl space-y-16">
+    <section id="experience" className="relative py-24 px-6 md:px-12 bg-transparent">
+      {/* Decorative vertical line connecting from About */}
+      <div className="absolute left-6 md:left-12 top-0 bottom-0 w-px bg-border/40 hidden sm:block" />
+
+      <div className="container mx-auto max-w-7xl relative z-10">
         
         {/* Section Heading */}
-        <div className="max-w-2xl text-left space-y-4">
-          <h2 className="text-sm font-mono font-bold uppercase tracking-widest text-primary">
-            02. Execution History
+        <div className="max-w-3xl text-left space-y-6 mb-16 pl-0 sm:pl-8">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold tracking-tight text-foreground">
+            Experience &amp; Education
           </h2>
-          <h3 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold tracking-tight text-foreground">
-            System Logs
-          </h3>
-          <p className="text-base text-muted-foreground max-w-[60ch]">
-            A chronological timeline of my professional experience, organizational involvement, and educational milestones.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12">
-          
-          {/* Left Column: Work Experience */}
-          <div className="space-y-8">
-            <h4 className="text-sm font-mono font-bold text-foreground uppercase flex items-center gap-2 border-b border-border pb-3">
-              <Briefcase className="h-4 w-4 text-primary" />
-              Professional Log
-            </h4>
+        <div className="pl-0 sm:pl-8">
+          <div className="max-w-4xl relative border-l border-border/60 ml-3 sm:ml-0">
             
-            <div className="pt-4">
-              {experienceData.map((item, index) => (
-                <LogEntry
-                  key={item.id}
-                  version={`v1.${experienceData.length - index}.0`}
-                  title={item.company}
-                  subtitle={item.role}
-                  date={item.duration}
-                  location={item.location}
-                  attachments={item.photos}
-                  onViewImage={(src, title) => setLightbox({ src, title })}
-                  body={
-                    <ul className="space-y-3">
-                      {item.achievements.map((ach, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5">
-                          <GitCommit className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                          <span>{renderBoldText(ach)}</span>
+            {/* Work Experience */}
+            <div className="mb-16">
+              <div className="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary" />
+              <div className="pl-8 pb-4">
+                <h3 className="text-sm font-mono font-bold text-foreground uppercase tracking-widest mb-8 text-primary">
+                  Professional Experience
+                </h3>
+                
+                <div className="space-y-12">
+                  {experienceData.map((item, index) => (
+                    <div key={item.id} className="space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
+                        <h4 className="text-2xl font-heading font-bold text-foreground">
+                          {item.company}
+                        </h4>
+                      </div>
+                      
+                      <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                        <span className="font-bold text-foreground">{item.role}</span>
+                        <span>&bull;</span>
+                        <span>{item.duration}</span>
+                        {item.location && (
+                          <>
+                            <span>&bull;</span>
+                            <span>{item.location}</span>
+                          </>
+                        )}
+                      </div>
+
+                      <div className="text-base text-muted-foreground leading-relaxed pt-2">
+                        <ul className="space-y-3">
+                          {item.achievements.map((ach, idx) => (
+                            <li key={idx} className="flex items-start gap-3">
+                              <span className="text-primary shrink-0 mt-1">&rarr;</span>
+                              <span className="font-sans">{renderBoldText(ach)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {item.photos && item.photos.length > 0 && (
+                        <div className="pt-6">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            {item.photos.map((src, idx) => (
+                              <div 
+                                key={idx}
+                                onClick={() => setLightbox({ src, title: `${item.company} - Photo ${idx + 1}` })}
+                                className="group relative aspect-video bg-muted/40 cursor-pointer overflow-hidden rounded-lg"
+                              >
+                                <img 
+                                  src={src} 
+                                  alt={`Photo ${idx + 1}`} 
+                                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Education */}
+            <div className="mb-16">
+              <div className="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-border" />
+              <div className="pl-8 pb-4">
+                <h3 className="text-sm font-mono font-bold text-foreground uppercase tracking-widest mb-8 text-muted-foreground">
+                  Education
+                </h3>
+                
+                <div className="space-y-4">
+                  <h4 className="text-xl font-heading font-bold text-foreground">
+                    {educationDetails.institution}
+                  </h4>
+                  <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                    <span className="font-bold text-foreground">{educationDetails.degree}</span>
+                    <span>&bull;</span>
+                    <span>2023 - Present</span>
+                  </div>
+                  
+                  <div className="pt-2 space-y-4">
+                    <p className="text-base text-foreground font-medium font-sans">
+                      Current GPA: {educationDetails.gpa}
+                    </p>
+                    <ul className="space-y-2 pt-1 text-muted-foreground">
+                      {educationDetails.awards.map((award, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <span className="text-muted-foreground shrink-0 mt-0.5">&bull;</span>
+                          <span className="font-sans text-sm">{award}</span>
                         </li>
                       ))}
                     </ul>
-                  }
-                />
-              ))}
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Right Column: Education & Organizations */}
-          <div className="space-y-12">
-            
-            {/* Education */}
-            <div className="space-y-8">
-              <h4 className="text-sm font-mono font-bold text-foreground uppercase flex items-center gap-2 border-b border-border pb-3">
-                <GraduationCap className="h-4 w-4 text-primary" />
-                Academic Log
-              </h4>
-              
-              <div className="pt-4">
-                <LogEntry
-                  version="v0.9.0"
-                  title={educationDetails.institution}
-                  subtitle={educationDetails.degree}
-                  date="2023 - Present"
-                  body={
-                    <div className="space-y-4">
-                      <div className="inline-flex items-center gap-2 bg-background border border-border px-3 py-1 text-xs font-mono font-bold text-foreground rounded">
-                        Current GPA: {educationDetails.gpa}
+            {/* Organizations */}
+            <div>
+              <div className="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-border" />
+              <div className="pl-8 pb-4">
+                <h3 className="text-sm font-mono font-bold text-foreground uppercase tracking-widest mb-8 text-muted-foreground">
+                  Organizations
+                </h3>
+                
+                <div className="space-y-12">
+                  {orgExperienceData.map((item, index) => (
+                    <div key={item.id} className="space-y-4">
+                      <h4 className="text-xl font-heading font-bold text-foreground">
+                        {item.organization}
+                      </h4>
+                      <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                        <span className="font-bold text-foreground">{item.role}</span>
+                        <span>&bull;</span>
+                        <span>{item.duration}</span>
                       </div>
-                      <div className="space-y-2">
-                        <span className="text-xs font-mono uppercase text-muted-foreground font-bold border-b border-border/40 pb-1 block">Awards &amp; Scholarships</span>
-                        <ul className="space-y-2 pt-1">
-                          {educationDetails.awards.map((award, idx) => (
-                            <li key={idx} className="flex items-start gap-2.5">
-                              <GitCommit className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                              <span>{award}</span>
+
+                      <div className="text-sm text-muted-foreground leading-relaxed pt-2">
+                        <ul className="space-y-2">
+                          {item.tasks.map((task, idx) => (
+                            <li key={idx} className="flex items-start gap-3">
+                              <span className="text-muted-foreground shrink-0 mt-0.5">&bull;</span>
+                              <span className="font-sans">{task}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
                     </div>
-                  }
-                />
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Organizations */}
-            <div className="space-y-8">
-              <h4 className="text-sm font-mono font-bold text-foreground uppercase flex items-center gap-2 border-b border-border pb-3">
-                <Terminal className="h-4 w-4 text-primary" />
-                Organization Log
-              </h4>
-              
-              <div className="pt-4">
-                {orgExperienceData.map((item, index) => (
-                  <LogEntry
-                    key={item.id}
-                    version={`v0.${orgExperienceData.length - index}.0`}
-                    title={item.organization}
-                    subtitle={item.role}
-                    date={item.duration}
-                    body={
-                      <ul className="space-y-3">
-                        {item.tasks.map((task, idx) => (
-                          <li key={idx} className="flex items-start gap-2.5">
-                            <GitCommit className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                            <span>{task}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    }
-                  />
-                ))}
-              </div>
-            </div>
-            
           </div>
         </div>
       </div>
@@ -247,7 +194,7 @@ export function Experience() {
           >
             <button
               onClick={() => setLightbox(null)}
-              className="absolute top-4 right-4 z-10 h-10 w-10 bg-muted/80 border border-border flex items-center justify-center text-foreground hover:bg-muted transition-colors rounded"
+              className="absolute top-4 right-4 z-10 h-10 w-10 bg-muted/80 flex items-center justify-center text-foreground hover:bg-muted transition-colors rounded-full"
               aria-label="Close image"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -262,14 +209,14 @@ export function Experience() {
               onClick={(e) => e.stopPropagation()}
               className="relative max-w-5xl max-h-[85vh] w-full h-full flex flex-col items-center justify-center gap-4"
             >
-              <div className="p-2 border border-border bg-card rounded-lg shadow-2xl">
+              <div className="p-2 bg-card rounded-lg shadow-2xl">
                 <img
                   src={lightbox.src}
                   alt={lightbox.title}
-                  className="max-w-full max-h-[75vh] object-contain"
+                  className="max-w-full max-h-[75vh] object-contain rounded"
                 />
               </div>
-              <div className="text-foreground text-xs font-mono tracking-widest uppercase bg-card border border-border px-4 py-2 rounded-sm shadow-sm">
+              <div className="text-foreground text-xs font-mono tracking-widest uppercase bg-card px-4 py-2 rounded-full shadow-sm">
                 {lightbox.title}
               </div>
             </motion.div>
